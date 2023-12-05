@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>test1 - 시계열분석 발표</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">test1</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html" rel="" target="">
+ <span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/" rel="" target=""><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com" rel="" target=""><i class="bi bi-twitter" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">시계열분석 발표</h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<section id="데이터" class="level3">
+<h3 class="anchored" data-anchor-id="데이터">데이터</h3>
+<ul>
+<li>2020.10.08 ~ 2021.12.31 대한민국 누적 코로나 확진자 수</li>
+<li>2021.11월 이후 누적 확진자 수가 대폭 증가하는 경향. (델타 + 오미크론 영향)</li>
+</ul>
+<div class="cell" data-execution_count="57">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">repr.plot.width =</span> <span class="dv">12</span>, <span class="at">repr.plot.height =</span> <span class="dv">8</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>data  <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">"COVID.csv"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>z <span class="ot">=</span> data<span class="sc">$</span>n;<span class="fu">head</span>(z)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+<ol class="list-inline"><li>62</li><li>41</li><li>67</li><li>54</li><li>74</li><li>75</li></ol>
+</div>
+</div>
+<div class="cell" data-execution_count="58">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>forecast<span class="sc">::</span><span class="fu">tsdisplay</span>(z, <span class="at">lag.max =</span> <span class="dv">28</span>, <span class="at">main =</span> <span class="st">"COVID-19 time series"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="시계열분석발표_files/figure-html/cell-3-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<ul>
+<li><p>시도표 상 이분산성이 보임. 또한 ACF 그림을 보아 비정상성 시계열 및 주기가 7인 계절성분이 보이는 것 같음.</p></li>
+<li><p>주기가 7인 이유: 같은 주 기준 평일 월, 화에 높고 금,토,일 주말에는 낮은 경향을 보였음.</p></li>
+<li><p>따라서 분산 안정화, 차분, 계절 차분할 예정.</p></li>
+</ul>
+<div class="cell" data-execution_count="59">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>forecast<span class="sc">::</span><span class="fu">BoxCox.lambda</span>(z)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+0.0970274555064468
+</div>
+</div>
+<div class="cell" data-execution_count="60">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>boxcox_z <span class="ot">=</span> forecast<span class="sc">::</span><span class="fu">BoxCox</span>(z,<span class="at">lambda=</span> forecast<span class="sc">::</span><span class="fu">BoxCox.lambda</span>(z));<span class="fu">head</span>(boxcox_z)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+<ol class="list-inline"><li>5.07577184262184</li><li>4.47075445339208</li><li>5.19196331004873</li><li>4.87095970687022</li><li>5.34211868344551</li><li>5.36251256483527</li></ol>
+</div>
+</div>
+<div class="cell" data-execution_count="61">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>forecast<span class="sc">::</span><span class="fu">tsdisplay</span>(boxcox_z, <span class="at">lag.max =</span> <span class="dv">28</span>, <span class="at">main =</span> <span class="st">"Boxcox data"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="시계열분석발표_files/figure-html/cell-6-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="62">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 단위근검정 H0 : phi=1</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>fUnitRoots<span class="sc">::</span><span class="fu">adfTest</span>(boxcox_z, <span class="at">lags =</span> <span class="dv">1</span>, <span class="at">type =</span> <span class="st">"ct"</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>fUnitRoots<span class="sc">::</span><span class="fu">adfTest</span>(boxcox_z, <span class="at">lags =</span> <span class="dv">2</span>, <span class="at">type =</span> <span class="st">"ct"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>
+Title:
+ Augmented Dickey-Fuller Test
+
+Test Results:
+  PARAMETER:
+    Lag Order: 1
+  STATISTIC:
+    Dickey-Fuller: -3.8528
+  P VALUE:
+    0.01646 
+
+Description:
+ Tue Dec  5 15:03:31 2023 by user: </code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>
+Title:
+ Augmented Dickey-Fuller Test
+
+Test Results:
+  PARAMETER:
+    Lag Order: 2
+  STATISTIC:
+    Dickey-Fuller: -2.8881
+  P VALUE:
+    0.2023 
+
+Description:
+ Tue Dec  5 15:03:31 2023 by user: </code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="63">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>d_boxcox_z <span class="ot">=</span> <span class="fu">diff</span>(boxcox_z)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>forecast<span class="sc">::</span><span class="fu">tsdisplay</span>(d_boxcox_z, <span class="at">lag.max =</span> <span class="dv">28</span>, <span class="at">main =</span> <span class="st">"differencing data"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="시계열분석발표_files/figure-html/cell-8-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>ds_d_boxcox_z <span class="ot">=</span> <span class="fu">diff</span>(d_boxcox_z, <span class="dv">7</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>forecast<span class="sc">::</span><span class="fu">tsdisplay</span>(ds_d_boxcox_z, <span class="at">lag.max =</span> <span class="dv">28</span>, <span class="at">main =</span> <span class="st">"seasonal differencing data"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="시계열분석발표_files/figure-html/cell-9-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<ul>
+<li>비계절형 ACF에서 1,2 시차에서 절단/ PACF에서는 1,2,3,4? 에서 절단</li>
+<li>비계절형에서는 차수가 더 낮은 ARIMA(0,0,2)모형 선택</li>
+<li>계절형 ACF 7에서 절단, PACF는 7,14,21에서 절단</li>
+<li>계절형에서는 SARIMA(0,0,1)7</li>
+<li>따라서 ds_d_boxcox_z = ARIMA(0,0,2)(0,0,1)7 or boxcox_z = ARIMA(0,1,2)(0,1,1)7을 선택</li>
+</ul>
+</section>
+<section id="모형-적합" class="level3">
+<h3 class="anchored" data-anchor-id="모형-적합">모형 적합</h3>
+<div class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>fit1 <span class="ot">=</span> <span class="fu">arima</span>(ds_d_boxcox_z, <span class="at">order =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">2</span>),</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">seasonal =</span> <span class="fu">list</span>(<span class="at">order =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">period=</span><span class="dv">7</span>))</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>
+Call:
+arima(x = ds_d_boxcox_z, order = c(0, 0, 2), seasonal = list(order = c(0, 0, 
+    1), period = 7))
+
+Coefficients:
+          ma1      ma2     sma1  intercept
+      -0.3563  -0.0323  -0.8962     -5e-04
+s.e.   0.0500   0.0473   0.0269      9e-04
+
+sigma^2 estimated as 0.0602:  log likelihood = -11.92,  aic = 33.83
+
+Training set error measures:
+                       ME      RMSE       MAE      MPE     MAPE     MASE
+Training set -0.003851825 0.2453618 0.1814767 96.82079 199.3321 0.471839
+                     ACF1
+Training set -0.000908014</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>lmtest<span class="sc">::</span><span class="fu">coeftest</span>(fit1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>
+z test of coefficients:
+
+             Estimate  Std. Error  z value  Pr(&gt;|z|)    
+ma1       -0.35630807  0.05001644  -7.1238  1.05e-12 ***
+ma2       -0.03227634  0.04725799  -0.6830    0.4946    
+sma1      -0.89616899  0.02694401 -33.2604 &lt; 2.2e-16 ***
+intercept -0.00050138  0.00087797  -0.5711    0.5680    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">=</span> <span class="fu">arima</span>(boxcox_z, <span class="at">order =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>),</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">seasonal =</span> <span class="fu">list</span>(<span class="at">order =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>), <span class="at">period=</span><span class="dv">7</span>))</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>
+Call:
+arima(x = boxcox_z, order = c(0, 1, 1), seasonal = list(order = c(0, 1, 1), 
+    period = 7))
+
+Coefficients:
+          ma1     sma1
+      -0.3735  -0.8947
+s.e.   0.0436   0.0269
+
+sigma^2 estimated as 0.06032:  log likelihood = -12.31,  aic = 30.62
+
+Training set error measures:
+                       ME      RMSE       MAE        MPE     MAPE      MASE
+Training set -0.009955862 0.2434152 0.1783768 -0.1744986 2.103107 0.6845257
+                   ACF1
+Training set 0.01293079</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>lmtest<span class="sc">::</span><span class="fu">coeftest</span>(fit2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>
+z test of coefficients:
+
+      Estimate Std. Error  z value  Pr(&gt;|z|)    
+ma1  -0.373504   0.043638  -8.5592 &lt; 2.2e-16 ***
+sma1 -0.894670   0.026852 -33.3190 &lt; 2.2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</code></pre>
+</div>
+</div>
+</section>
+<section id="잔차검정" class="level2">
+<h2 class="anchored" data-anchor-id="잔차검정">잔차검정</h2>
+<div class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>forecast<span class="sc">::</span><span class="fu">checkresiduals</span>(fit2, <span class="at">main =</span> <span class="st">"residual"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Ljung-Box test
+
+data:  Residuals from ARIMA(0,1,1)(0,1,1)[7]
+Q* = 16.188, df = 8, p-value = 0.03976
+
+Model df: 2.   Total lags used: 10
+</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="시계열분석발표_files/figure-html/cell-14-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(<span class="fu">resid</span>(fit2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>
+    One Sample t-test
+
+data:  resid(fit2)
+t = -0.8674, df = 449, p-value = 0.3862
+alternative hypothesis: true mean is not equal to 0
+95 percent confidence interval:
+ -0.03251286  0.01260113
+sample estimates:
+   mean of x 
+-0.009955862 </code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Box.test</span>(<span class="fu">resid</span>(fit2), <span class="at">lag=</span><span class="dv">1</span>, <span class="at">type =</span> <span class="st">"Ljung-Box"</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Box.test</span>(<span class="fu">resid</span>(fit2), <span class="at">lag=</span><span class="dv">6</span>, <span class="at">type =</span> <span class="st">"Ljung-Box"</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">Box.test</span>(<span class="fu">resid</span>(fit2), <span class="at">lag=</span><span class="dv">12</span>, <span class="at">type =</span> <span class="st">"Ljung-Box"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>
+    Box-Ljung test
+
+data:  resid(fit2)
+X-squared = 0.075745, df = 1, p-value = 0.7831</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>
+    Box-Ljung test
+
+data:  resid(fit2)
+X-squared = 7.8473, df = 6, p-value = 0.2495</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>
+    Box-Ljung test
+
+data:  resid(fit2)
+X-squared = 16.376, df = 12, p-value = 0.1746</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>astsa<span class="sc">::</span><span class="fu">sarima</span>(boxcox_z, <span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">7</span>, <span class="at">details =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>initial  value -1.061301 
+iter   2 value -1.311697
+iter   3 value -1.330154
+iter   4 value -1.338688
+iter   5 value -1.344267
+iter   6 value -1.345799
+iter   7 value -1.345936
+iter   8 value -1.346035
+iter   9 value -1.346035
+iter   9 value -1.346035
+iter   9 value -1.346035
+final  value -1.346035 
+converged
+initial  value -1.371426 
+iter   2 value -1.391006
+iter   3 value -1.391074
+iter   4 value -1.391081
+iter   5 value -1.391086
+iter   6 value -1.391087
+iter   6 value -1.391087
+final  value -1.391087 
+converged</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>$fit
+
+Call:
+arima(x = xdata, order = c(p, d, q), seasonal = list(order = c(P, D, Q), period = S), 
+    include.mean = !no.constant, transform.pars = trans, fixed = fixed, optim.control = list(trace = trc, 
+        REPORT = 1, reltol = tol))
+
+Coefficients:
+          ma1     sma1
+      -0.3735  -0.8947
+s.e.   0.0436   0.0269
+
+sigma^2 estimated as 0.06032:  log likelihood = -12.31,  aic = 30.62
+
+$degrees_of_freedom
+[1] 440
+
+$ttable
+     Estimate     SE  t.value p.value
+ma1   -0.3735 0.0436  -8.5592       0
+sma1  -0.8947 0.0269 -33.3190       0
+
+$AIC
+[1] 0.06927794
+
+$AICc
+[1] 0.06933979
+
+$BIC
+[1] 0.09704701</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="시계열분석발표_files/figure-html/cell-17-output-3.png" class="img-fluid"></p>
+</div>
+</div>
+<section id="여러가지-모형-적합" class="level3">
+<h3 class="anchored" data-anchor-id="여러가지-모형-적합">여러가지 모형 적합</h3>
+<div class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit2)<span class="sc">$</span>aic</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit2)<span class="sc">$</span>sigma2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+30.6208505601209
+</div>
+<div class="cell-output cell-output-display">
+0.0603230451585682
+</div>
+</div>
+<div class="cell" data-execution_count="33">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>fit3 <span class="ot">=</span> <span class="fu">arima</span>(boxcox_z, <span class="at">order =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>),</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">seasonal =</span> <span class="fu">list</span>(<span class="at">order =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>), <span class="at">period=</span><span class="dv">7</span>))</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit3)</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>lmtest<span class="sc">::</span><span class="fu">coeftest</span>(fit3)</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit3)<span class="sc">$</span>aic</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit3)<span class="sc">$</span>sigma2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>
+Call:
+arima(x = boxcox_z, order = c(1, 1, 0), seasonal = list(order = c(0, 1, 1), 
+    period = 7))
+
+Coefficients:
+          ar1     sma1
+      -0.3002  -0.8918
+s.e.   0.0457   0.0262
+
+sigma^2 estimated as 0.06213:  log likelihood = -18.73,  aic = 43.46
+
+Training set error measures:
+                       ME      RMSE       MAE        MPE     MAPE      MASE
+Training set -0.008447679 0.2470426 0.1771224 -0.1556136 2.103485 0.6797119
+                    ACF1
+Training set -0.05502391</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>
+z test of coefficients:
+
+      Estimate Std. Error  z value  Pr(&gt;|z|)    
+ar1  -0.300167   0.045672  -6.5723 4.955e-11 ***
+sma1 -0.891807   0.026243 -33.9828 &lt; 2.2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+43.4628750492228
+</div>
+<div class="cell-output cell-output-display">
+0.0621343484023975
+</div>
+</div>
+<div class="cell" data-execution_count="35">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>fit4 <span class="ot">=</span> <span class="fu">arima</span>(boxcox_z, <span class="at">order =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">0</span>),</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">seasonal =</span> <span class="fu">list</span>(<span class="at">order =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>), <span class="at">period=</span><span class="dv">7</span>))</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit4)</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>lmtest<span class="sc">::</span><span class="fu">coeftest</span>(fit4)</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit4)<span class="sc">$</span>aic</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit4)<span class="sc">$</span>sigma2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>
+Call:
+arima(x = boxcox_z, order = c(2, 1, 0), seasonal = list(order = c(0, 1, 1), 
+    period = 7))
+
+Coefficients:
+          ar1      ar2     sma1
+      -0.3526  -0.1881  -0.9008
+s.e.   0.0469   0.0475   0.0260
+
+sigma^2 estimated as 0.05991:  log likelihood = -11.01,  aic = 30.02
+
+Training set error measures:
+                       ME      RMSE     MAE        MPE   MAPE      MASE
+Training set -0.009928693 0.2425888 0.17824 -0.1738818 2.1011 0.6840005
+                     ACF1
+Training set -0.004152125</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>
+z test of coefficients:
+
+      Estimate Std. Error  z value  Pr(&gt;|z|)    
+ar1  -0.352623   0.046869  -7.5236 5.329e-14 ***
+ar2  -0.188129   0.047501  -3.9606 7.478e-05 ***
+sma1 -0.900764   0.025962 -34.6959 &lt; 2.2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+30.0191468250517
+</div>
+<div class="cell-output cell-output-display">
+0.0599141307778544
+</div>
+</div>
+<div class="cell" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>fit5 <span class="ot">=</span> <span class="fu">arima</span>(boxcox_z, <span class="at">order =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>),</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">seasonal =</span> <span class="fu">list</span>(<span class="at">order =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">period=</span><span class="dv">7</span>))</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit5)</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>lmtest<span class="sc">::</span><span class="fu">coeftest</span>(fit5)</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit5)<span class="sc">$</span>aic</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit5)<span class="sc">$</span>sigma2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>
+Call:
+arima(x = boxcox_z, order = c(0, 1, 1), seasonal = list(order = c(0, 1, 2), 
+    period = 7))
+
+Coefficients:
+          ma1     sma1     sma2
+      -0.3817  -0.8546  -0.0462
+s.e.   0.0445   0.0489   0.0482
+
+sigma^2 estimated as 0.06018:  log likelihood = -11.85,  aic = 31.7
+
+Training set error measures:
+                      ME     RMSE      MAE        MPE     MAPE      MASE
+Training set -0.01039578 0.243128 0.177735 -0.1806921 2.094994 0.6820624
+                   ACF1
+Training set 0.01583387</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>
+z test of coefficients:
+
+      Estimate Std. Error  z value Pr(&gt;|z|)    
+ma1  -0.381724   0.044519  -8.5745   &lt;2e-16 ***
+sma1 -0.854601   0.048855 -17.4926   &lt;2e-16 ***
+sma2 -0.046235   0.048168  -0.9599   0.3371    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+31.700355026282
+</div>
+<div class="cell-output cell-output-display">
+0.0601807670536254
+</div>
+</div>
+<div class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>fit6 <span class="ot">=</span> <span class="fu">arima</span>(boxcox_z, <span class="at">order =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>),</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">seasonal =</span> <span class="fu">list</span>(<span class="at">order =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>), <span class="at">period=</span><span class="dv">7</span>))</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit6)</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>lmtest<span class="sc">::</span><span class="fu">coeftest</span>(fit6)</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit6)<span class="sc">$</span>aic</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit6)<span class="sc">$</span>sigma2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>
+Call:
+arima(x = boxcox_z, order = c(1, 1, 1), seasonal = list(order = c(1, 1, 1), 
+    period = 7))
+
+Coefficients:
+         ar1      ma1    sar1     sma1
+      0.0677  -0.4362  0.0600  -0.9088
+s.e.  0.1010   0.0878  0.0562   0.0265
+
+sigma^2 estimated as 0.0601:  log likelihood = -11.59,  aic = 33.18
+
+Training set error measures:
+                      ME      RMSE       MAE        MPE     MAPE      MASE
+Training set -0.01059982 0.2429618 0.1776908 -0.1828248 2.093254 0.6818928
+                    ACF1
+Training set 0.003942798</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>
+z test of coefficients:
+
+      Estimate Std. Error  z value  Pr(&gt;|z|)    
+ar1   0.067739   0.100999   0.6707    0.5024    
+ma1  -0.436222   0.087826  -4.9669 6.805e-07 ***
+sar1  0.060033   0.056197   1.0683    0.2854    
+sma1 -0.908787   0.026496 -34.2984 &lt; 2.2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+33.1767403574291
+</div>
+<div class="cell-output cell-output-display">
+0.0600985463564696
+</div>
+</div>
+<div class="cell" data-execution_count="44">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>fit7 <span class="ot">=</span> forecast<span class="sc">::</span><span class="fu">auto.arima</span>(<span class="fu">ts</span>(boxcox_z, <span class="at">frequency=</span><span class="dv">7</span>),</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">test =</span> <span class="st">"adf"</span>,</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">seasonal =</span> <span class="cn">TRUE</span>, <span class="at">trace =</span> F)</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit7)</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>lmtest<span class="sc">::</span><span class="fu">coeftest</span>(fit7)</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit7)<span class="sc">$</span>aic</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit7)<span class="sc">$</span>sigma2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>Series: ts(boxcox_z, frequency = 7) 
+ARIMA(2,0,2)(2,1,2)[7] with drift 
+
+Coefficients:
+         ar1     ar2     ma1      ma2    sar1    sar2     sma1    sma2   drift
+      0.2555  0.7227  0.3816  -0.3275  0.2010  0.0436  -1.0546  0.1210  0.0178
+s.e.  0.3999  0.3942  0.3883   0.1190  0.6152  0.0713   0.6145  0.5625  0.0073
+
+sigma^2 = 0.06043:  log likelihood = -7.96
+AIC=35.93   AICc=36.44   BIC=76.86
+
+Training set error measures:
+                        ME      RMSE     MAE         MPE     MAPE      MASE
+Training set -0.0006914901 0.2414096 0.17754 -0.04840449 2.089976 0.4767194
+                     ACF1
+Training set -0.008133506</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>
+z test of coefficients:
+
+        Estimate Std. Error z value Pr(&gt;|z|)   
+ar1    0.2554734  0.3999393  0.6388 0.522966   
+ar2    0.7226721  0.3942309  1.8331 0.066785 . 
+ma1    0.3815957  0.3882700  0.9828 0.325701   
+ma2   -0.3274742  0.1190479 -2.7508 0.005945 **
+sar1   0.2009889  0.6152236  0.3267 0.743901   
+sar2   0.0436016  0.0713448  0.6111 0.541107   
+sma1  -1.0546226  0.6144969 -1.7162 0.086119 . 
+sma2   0.1210424  0.5625448  0.2152 0.829635   
+drift  0.0177889  0.0073206  2.4300 0.015100 * 
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+35.9277358952237
+</div>
+<div class="cell-output cell-output-display">
+0.0604270946682531
+</div>
+</div>
+<ul>
+<li>AIC, Sigma^2 가장 작은 ARIMA(2,1,0)(0,1,1)7 적합</li>
+</ul>
+</section>
+<section id="예측" class="level3">
+<h3 class="anchored" data-anchor-id="예측">예측</h3>
+<div class="cell" data-execution_count="46">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>fore_fit <span class="ot">=</span> forecast<span class="sc">::</span><span class="fu">forecast</span>(fit2, <span class="dv">31</span>)</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>forecast_z <span class="ot">=</span> forecast<span class="sc">::</span><span class="fu">InvBoxCox</span>(fore_fit<span class="sc">$</span>mean, <span class="at">lambda=</span>forecast<span class="sc">::</span><span class="fu">BoxCox.lambda</span>(z))</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>forecast_z_upper95 <span class="ot">=</span> forecast<span class="sc">::</span><span class="fu">InvBoxCox</span>(fore_fit<span class="sc">$</span>upper[,<span class="dv">2</span>], <span class="at">lambda=</span>forecast<span class="sc">::</span><span class="fu">BoxCox.lambda</span>(z))</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>forecast_z_lower95 <span class="ot">=</span> forecast<span class="sc">::</span><span class="fu">InvBoxCox</span>(fore_fit<span class="sc">$</span>lower[,<span class="dv">2</span>], <span class="at">lambda=</span>forecast<span class="sc">::</span><span class="fu">BoxCox.lambda</span>(z))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="48">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span>(<span class="fu">length</span>(z)<span class="sc">+</span><span class="dv">31</span>), <span class="fu">c</span>(z, forecast_z_upper95), <span class="at">type=</span><span class="st">'n'</span>, <span class="at">xlab=</span><span class="st">'t'</span>, <span class="at">ylab=</span><span class="st">'z'</span>, <span class="at">main =</span> <span class="st">"Prediction for 1 month ahead"</span>)</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(z),z)</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>((<span class="fu">length</span>(z)<span class="sc">+</span><span class="dv">1</span>) <span class="sc">:</span> (<span class="fu">length</span>(z)<span class="sc">+</span><span class="dv">31</span>), forecast_z, <span class="at">col=</span><span class="st">'red'</span>)</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>((<span class="fu">length</span>(z)<span class="sc">+</span><span class="dv">1</span>) <span class="sc">:</span> (<span class="fu">length</span>(z)<span class="sc">+</span><span class="dv">31</span>), forecast<span class="sc">::</span><span class="fu">InvBoxCox</span>(fore_fit<span class="sc">$</span>lower[,<span class="dv">2</span>], <span class="at">lambda=</span>forecast<span class="sc">::</span><span class="fu">BoxCox.lambda</span>(z)), <span class="at">col=</span><span class="st">'blue'</span>)</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>((<span class="fu">length</span>(z)<span class="sc">+</span><span class="dv">1</span>) <span class="sc">:</span> (<span class="fu">length</span>(z)<span class="sc">+</span><span class="dv">31</span>), forecast<span class="sc">::</span><span class="fu">InvBoxCox</span>(fore_fit<span class="sc">$</span>upper[,<span class="dv">2</span>], <span class="at">lambda=</span>forecast<span class="sc">::</span><span class="fu">BoxCox.lambda</span>(z)), <span class="at">col=</span><span class="st">'blue'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="시계열분석발표_files/figure-html/cell-25-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
