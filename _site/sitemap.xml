@@ -2,14 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://jeongchoyun.github.io/test1/about.html</loc>
-    <lastmod>2023-12-05T15:50:54.923Z</lastmod>
+    <lastmod>2023-12-05T15:53:10.055Z</lastmod>
   </url>
   <url>
     <loc>https://jeongchoyun.github.io/test1/posts/13주차과제.html</loc>
-    <lastmod>2023-12-05T15:50:54.387Z</lastmod>
+    <lastmod>2023-12-05T15:53:09.479Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jeongchoyun.github.io/test1/posts/시계열분석발표.html</loc>
+    <lastmod>2023-12-05T15:53:07.823Z</lastmod>
   </url>
   <url>
     <loc>https://jeongchoyun.github.io/test1/index.html</loc>
-    <lastmod>2023-12-05T15:50:54.687Z</lastmod>
+    <lastmod>2023-12-05T15:53:09.815Z</lastmod>
   </url>
 </urlset>
